@@ -1,9 +1,11 @@
 import React from "react";
+import CenteredCard from "../utils/styled-components.js/CenteredCard";
+import RegisterContainer from "../utils/containers/RegisterContainer";
 
 const Register = () => (
-  <div>
-    <h1>Register</h1>
-  </div>
+  <CenteredCard>
+    <RegisterContainer />
+  </CenteredCard>
 );
 
 export default Register;

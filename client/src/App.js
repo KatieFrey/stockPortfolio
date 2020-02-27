@@ -5,6 +5,8 @@ import Register from "./pages/Register";
 import Signin from "./pages/Signin";
 import Transactions from "./pages/Transactions";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 export default class App extends React.Component {
   render() {
     return (
