@@ -1,5 +1,5 @@
 import React from "react";
-import CenteredCard from "../utils/styled-components.js/CenteredCard";
+import CenteredCard from "../utils/styled-components/CenteredCard";
 import RegisterContainer from "../utils/containers/RegisterContainer";
 
 const Register = () => (

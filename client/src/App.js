@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import Signin from "./pages/Signin";
 import Transactions from "./pages/Transactions";
+import Layout from "./components/Layout";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -12,10 +13,12 @@ export default class App extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route path="/dashboard" component={Dashboard}></Route>
-          <Route path="/transactions" component={Transactions}></Route>
-          <Route path="/signin" component={Signin}></Route>
-          <Route path="/register" component={Register}></Route>
+          <Layout>
+            <Route path="/dashboard" component={Dashboard}></Route>
+            <Route path="/transactions" component={Transactions}></Route>
+            <Route path="/signin" component={Signin}></Route>
+            <Route path="/register" component={Register}></Route>
+          </Layout>
         </Switch>
       </Router>
     );

@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const CenteredCard = styled.div`
-  justify-content: center;
-  align-content: center;
+  margin-top: 20vh;
 `;
 export default CenteredCard;

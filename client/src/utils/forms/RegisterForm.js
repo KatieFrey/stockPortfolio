@@ -21,7 +21,9 @@ class RegisterForm extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     alert(this.state.email);
-    //Redirect to dashboard
+    //Create an instance of user
+    //Passport authentication
+    //Redirect to signin with this.state
   };
   render() {
     return (

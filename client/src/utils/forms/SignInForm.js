@@ -20,6 +20,7 @@ class SignInForm extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     alert(this.state.email, this.state.password);
+    //Check if user exists then,
     //redirect to Dashboard
   };
   render() {
