@@ -1,6 +1,8 @@
 import React from "react";
-import { Row, Col, Card, Container } from "react-bootstrap";
+import { Row, Col, Card, Container, Button } from "react-bootstrap";
 import SignInForm from "../forms/SignInForm";
+
+import { signInWithGoogle } from "../../firebase/firebase.utils";
 
 const SignInContainer = () => (
   <Container>
@@ -13,6 +15,9 @@ const SignInContainer = () => (
             <SignInForm />
             <br />
             <Card.Link href="/register">Register as a User</Card.Link>
+            <Button onClick={signInWithGoogle} style={{ marginLeft: "20px" }}>
+              Sign In With Google
+            </Button>
           </Card.Body>
         </Card>
       </Col>

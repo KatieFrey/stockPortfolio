@@ -1,13 +1,15 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 
 class RegisterForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: "",
+      displayName: "",
       email: "",
-      password: ""
+      password: "",
+      confirmPassword: ""
     };
   }
 
@@ -15,15 +17,37 @@ class RegisterForm extends React.Component {
     await this.setState({
       [event.target.name]: event.target.value
     });
-    console.log(this.state);
   };
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
-    alert(this.state.email);
-    //Create an instance of user
-    //Passport authentication
-    //Redirect to signin with this.state
+    const { displayName, email, password, confirmPassword } = this.state;
+
+    if (password !== confirmPassword) {
+      alert(`Passwords don't match`);
+      return;
+    }
+
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      //Remember createUserProfileDocument takes an additionalData parameter
+      createUserProfileDocument(user, { displayName });
+
+      //Reset state
+      this.setState({
+        displayName: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+      });
+    } catch (error) {
+      console.log(error.message);
+      //console.error(error);
+    }
   };
   render() {
     return (
@@ -32,12 +56,14 @@ class RegisterForm extends React.Component {
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
-            name="username"
+            name="displayName"
             onChange={this.handleChange}
             value={this.state.username}
             placeholder="Enter username"
           />
-          <Form.Text className="text-muted">Single word. No spaces.</Form.Text>
+          <Form.Text className="text-muted">
+            This name will be used as your profile name
+          </Form.Text>
         </Form.Group>
 
         <Form.Group controlId="formBasicEmail">
@@ -64,11 +90,19 @@ class RegisterForm extends React.Component {
             placeholder="Password"
           />
         </Form.Group>
-        <Form.Group controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            type="password"
+            name="confirmPassword"
+            onChange={this.handleChange}
+            value={this.state.confirmPassword}
+            placeholder="Retype your password"
+          />
         </Form.Group>
+
         <Button variant="primary" type="submit">
-          Submit
+          Register
         </Button>
       </Form>
     );
