@@ -1,9 +1,11 @@
 import React from "react";
+import SignInContainer from "../utils/containers/SignInContainer";
+import CenteredCard from "../utils/styled-components/CenteredCard";
 
 const SignIn = () => (
-  <div>
-    <h1>SignIn</h1>
-  </div>
+  <CenteredCard>
+    <SignInContainer />
+  </CenteredCard>
 );
 
 export default SignIn;
