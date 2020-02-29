@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
+import { auth } from "../../firebase/firebase.utils";
 
 class SignInForm extends React.Component {
   constructor() {
@@ -14,13 +15,19 @@ class SignInForm extends React.Component {
     await this.setState({
       [event.target.name]: event.target.value
     });
-    console.log(this.state);
   };
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
-    alert(this.state.email, this.state.password);
-    //Check if user exists then,
+    const { email, password } = this.state;
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      this.setState({ email: "", password: "" });
+    } catch (error) {
+      console.log(error);
+    }
+
     //redirect to Dashboard
   };
   render() {
