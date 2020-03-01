@@ -58,7 +58,7 @@ export default class App extends React.Component {
               exact
               path="/"
               loggedIn={currentUser}
-              component={Signin}
+              component={currentUser ? Dashboard : Signin}
             ></Route>
             <ProtectedRoute
               exact
