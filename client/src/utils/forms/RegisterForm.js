@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import { Redirect } from "react-router-dom";
 
 class RegisterForm extends React.Component {
   constructor() {
@@ -21,6 +22,7 @@ class RegisterForm extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    console.log("RegisterForm props: ", this.props);
     const { displayName, email, password, confirmPassword } = this.state;
 
     if (password !== confirmPassword) {
@@ -44,6 +46,8 @@ class RegisterForm extends React.Component {
         password: "",
         confirmPassword: ""
       });
+
+      return <Redirect to="/dashboard" />;
     } catch (error) {
       console.log(error.message);
       //console.error(error);

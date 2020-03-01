@@ -13,7 +13,7 @@ const RegisterContainer = () => (
             <br />
             <RegisterForm />
             <br />
-            <Card.Link href="/signin">Already a User?</Card.Link>
+            <Card.Link href="/">Already a User?</Card.Link>
             <Button onClick={signInWithGoogle} style={{ marginLeft: "20px" }}>
               Sign Up With Google
             </Button>

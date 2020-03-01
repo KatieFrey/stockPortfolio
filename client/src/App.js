@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Signin from "./pages/Signin";
 import Transactions from "./pages/Transactions";
 import Layout from "./components/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
@@ -48,13 +49,23 @@ export default class App extends React.Component {
     this.unsubscribeFromAuth();
   }
   render() {
+    let { currentUser } = this.state;
     return (
       <Router>
         <Switch>
-          <Layout currentUser={this.state.currentUser}>
-            <Route path="/dashboard" component={Dashboard}></Route>
-            <Route path="/transactions" component={Transactions}></Route>
-            <Route path="/signin" component={Signin}></Route>
+          <Layout currentUser={currentUser}>
+            <Route
+              exact
+              path="/"
+              loggedIn={currentUser}
+              component={currentUser ? Dashboard : Signin}
+            ></Route>
+            <ProtectedRoute
+              exact
+              path="/dashboard"
+              loggedIn={currentUser}
+              component={Dashboard}
+            />
             <Route path="/register" component={Register}></Route>
           </Layout>
         </Switch>

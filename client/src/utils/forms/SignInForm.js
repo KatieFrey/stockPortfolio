@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import { auth } from "../../firebase/firebase.utils";
+import { Redirect } from "react-router-dom";
 
 class SignInForm extends React.Component {
   constructor() {
@@ -24,11 +25,12 @@ class SignInForm extends React.Component {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       this.setState({ email: "", password: "" });
+      return <Redirect to="dashboard" />;
     } catch (error) {
       console.log(error);
     }
 
-    //redirect to Dashboard
+    return <Redirect to="/" />;
   };
   render() {
     return (
