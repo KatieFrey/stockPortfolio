@@ -23,11 +23,13 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
+    const balance = 5000;
 
     try {
       //Creating a new user with the .set method
       await userRef.set({
         displayName,
+        balance: balance,
         email,
         createdAt,
         ...additionalData

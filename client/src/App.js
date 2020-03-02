@@ -51,7 +51,7 @@ export default class App extends React.Component {
   }
   render() {
     let { currentUser } = this.state;
-    console.log("App.js currentUser: ", currentUser);
+    //console.log("App.js currentUser: ", currentUser);
     return (
       <Router>
         <Switch>
