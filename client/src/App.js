@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import Signin from "./pages/Signin";
-import Transactions from "./pages/Transactions";
+
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PropsRoute from "./components/PropsRoute";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
@@ -50,16 +51,17 @@ export default class App extends React.Component {
   }
   render() {
     let { currentUser } = this.state;
+    console.log("App.js currentUser: ", currentUser);
     return (
       <Router>
         <Switch>
           <Layout currentUser={currentUser}>
-            <Route
+            <PropsRoute
               exact
               path="/"
-              loggedIn={currentUser}
+              currentUser={currentUser}
               component={currentUser ? Dashboard : Signin}
-            ></Route>
+            ></PropsRoute>
             <ProtectedRoute
               exact
               path="/dashboard"
