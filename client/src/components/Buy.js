@@ -2,6 +2,7 @@ import React from "react";
 import { InputGroup, FormControl, Button, Form } from "react-bootstrap";
 import { auth, firestore } from "../firebase/firebase.utils";
 import quote from "../utils/getQuoteEXI";
+import { getCurrentUserData } from "../utils/webUtils";
 
 class Buy extends React.Component {
   constructor(props) {

@@ -21,7 +21,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      currentUser: null
+      currentUser: null,
+      firebaseUser: null
     };
   }
 
@@ -55,7 +56,7 @@ class App extends React.Component {
     this.unsubscribeFromAuth();
   }
   render() {
-    let { currentUser } = this.state;
+    let { currentUser, firebaseUser } = this.state;
     //console.log("App.js currentUser: ", currentUser);
     return (
       <Router>

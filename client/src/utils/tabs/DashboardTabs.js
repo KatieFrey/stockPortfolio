@@ -51,7 +51,13 @@ class DashboardTabs extends React.Component {
   // };
 
   render() {
-    const { portfolio, transactions, currentUser, quoteData } = this.props;
+    const {
+      portfolio,
+      transactions,
+      currentUser,
+      quoteData,
+      handleChange
+    } = this.props;
     console.log("Portfolio in tabs: ", portfolio);
     return (
       <Tabs
@@ -66,7 +72,7 @@ class DashboardTabs extends React.Component {
           <Transactions transactions={transactions} />
         </Tab>
         <Tab eventKey="buy" title="Buy">
-          <Buy currentUser={currentUser} />
+          <Buy currentUser={currentUser} handle={handleChange} />
         </Tab>
       </Tabs>
     );
