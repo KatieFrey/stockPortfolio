@@ -37,7 +37,7 @@ class RegisterForm extends React.Component {
       );
 
       //Remember createUserProfileDocument takes an additionalData parameter
-      createUserProfileDocument(user, { displayName, balance: 3500 });
+      createUserProfileDocument(user, { displayName, balance: 5000 });
 
       //Reset state
       this.setState({

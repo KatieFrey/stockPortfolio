@@ -4,7 +4,7 @@ import Portfolio from "../../components/Portfolio";
 import Transactions from "../../components/Transactions";
 import Buy from "../../components/Buy";
 
-const DashboardTabs = ({ stocks, transactions }) => {
+const DashboardTabs = ({ stocks, transactions, currentUser }) => {
   return (
     <Tabs defaultActiveKey="portfolio" id="uncontrolled-tab-example">
       <Tab eventKey="portfolio" title="Portfolio">
@@ -14,7 +14,7 @@ const DashboardTabs = ({ stocks, transactions }) => {
         <Transactions transactions={transactions} />
       </Tab>
       <Tab eventKey="buy" title="Buy">
-        <Buy stocks={stocks} />
+        <Buy stocks={stocks} currentUser={currentUser} />
       </Tab>
     </Tabs>
   );

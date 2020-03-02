@@ -4,15 +4,17 @@ import CenteredDashboard from "../utils/styled-components/CenteredDashboard";
 import DashboardTabs from "../utils/tabs/DashboardTabs";
 
 class Dashboard extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       stocks: [],
-      transactions: []
+      transactions: [],
+      currentUser: null
     };
   }
 
   componentDidMount() {
+    this.setCurrentUser(this.props.currentUser);
     this.getStocks();
     this.getTransactions();
   }
@@ -41,12 +43,18 @@ class Dashboard extends React.Component {
       ]
     });
   }
+  setCurrentUser = async user => {
+    await this.setState({ currentUser: user });
+  };
   render() {
+    const { currentUser } = this.state;
+    console.log("CurrentUser: ", currentUser);
     return (
       <CenteredDashboard>
         <DashboardTabs
           stocks={this.state.stocks}
           transactions={this.state.transactions}
+          currentUser={currentUser}
         />
       </CenteredDashboard>
     );
