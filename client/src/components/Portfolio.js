@@ -11,15 +11,16 @@ const Portfolio = props => {
   return (
     <div>
       <ListGroup>
-        {/* {props.quoteData &&
+        {props.quoteData &&
           props.portfolio.map(curr => (
             <ListGroup.Item
               style={{ color: props.quoteData.colors[curr.ticker] }}
               key={curr.latestPrice}
             >
-              {curr.ticker} - {curr.quantity} shares - ${}
+              {curr.ticker} - {curr.quantity} shares - $
+              {props.quoteData.today[curr.ticker][1]}
             </ListGroup.Item>
-          ))} */}
+          ))}
       </ListGroup>
     </div>
   );
