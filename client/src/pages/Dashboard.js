@@ -27,20 +27,22 @@ class Dashboard extends React.Component {
     // this.setCurrentUser(this.props.currentUser);
     // this.getStocks();
     // this.getTransactions();
-    console.log("CurrentUser props - ", this.props.currentUser);
-    const portfolio = await getPortfolio(this.props.currentUser);
-    console.log("portfolio - ", portfolio);
-    const transactions = await getTransactions(this.props.currentUser);
-    //console.log("transactions - ", transactions);
-    const quoteData = await getTodaysQuote(portfolio);
-    console.log("quoteData - ", quoteData);
 
-    this.setState({
-      portfolio: portfolio,
-      transactions: transactions,
-      currentUser: this.props.currentUser,
-      quoteData: quoteData
-    });
+    if (this.props && this.props.currentUser) {
+      const portfolio = await getPortfolio(this.props.currentUser);
+      console.log("portfolio - ", portfolio);
+      const transactions = await getTransactions(this.props.currentUser);
+      //console.log("transactions - ", transactions);
+      const quoteData = await getTodaysQuote(portfolio);
+      console.log("quoteData - ", quoteData);
+      this.setState({
+        portfolio: portfolio,
+        transactions: transactions,
+        currentUser: this.props.currentUser,
+        quoteData: quoteData
+      });
+    }
+
     console.log("Component did mount state: ", this.state);
   }
 

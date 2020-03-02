@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
-import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class RegisterForm extends React.Component {
   constructor() {
@@ -10,7 +10,9 @@ class RegisterForm extends React.Component {
       displayName: "",
       email: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
+      registered: false,
+      error: ""
     };
   }
 
@@ -39,6 +41,12 @@ class RegisterForm extends React.Component {
       //Remember createUserProfileDocument takes an additionalData parameter
       createUserProfileDocument(user, { displayName, balance: 5000 });
 
+      this.setState({
+        registered: true
+      });
+
+      console.log("Registered: ", this.state.registered);
+
       //Reset state
       this.setState({
         displayName: "",
@@ -47,9 +55,12 @@ class RegisterForm extends React.Component {
         confirmPassword: ""
       });
 
-      return <Redirect to="/dashboard" />;
+      this.props.history.push("/");
+
+      // return <Redirect to="/" />;
     } catch (error) {
       console.log(error.message);
+      this.setState({ error: error.message });
       //console.error(error);
     }
   };
@@ -84,6 +95,7 @@ class RegisterForm extends React.Component {
           </Form.Text>
         </Form.Group>
 
+        <div style={{ color: "red" }}>{this.state.error}</div>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -105,12 +117,16 @@ class RegisterForm extends React.Component {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
-          Register
-        </Button>
+        {this.state.registered ? (
+          <Button variant="secondary">Sign In</Button>
+        ) : (
+          <Button variant="primary" type="submit">
+            Register
+          </Button>
+        )}
       </Form>
     );
   }
 }
 
-export default RegisterForm;
+export default withRouter(RegisterForm);
