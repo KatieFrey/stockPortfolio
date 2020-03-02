@@ -12,7 +12,9 @@ class Buy extends React.Component {
       total: 0,
       userData: null,
       test: false,
-      disabled: true
+      disabled: true,
+      latestPrice: "",
+      openPrice: ""
     };
   }
   componentDidMount() {
@@ -34,18 +36,18 @@ class Buy extends React.Component {
   calculateAmount = async event => {
     event.preventDefault();
     //Check the quantity to see if its a number, and if it's a float, alert if its not
-    this.setState(
-      {
-        test: true,
-        quantity: Math.round(this.state.quantity)
-      },
-      console.log(this.state.test)
-    );
+    this.setState({
+      test: true,
+      quantity: Math.round(this.state.quantity)
+    });
 
     //Call the api for the symbol
 
     const quoteData = await quote(this.state.ticker);
-    //console.log("QuoteData: ", quoteData);
+
+    this.setState({
+      latestPrice: quoteData.latestPrice.toFixed(2)
+    });
 
     //Check if the ticker symbol is valid, alert if it's not
 
@@ -58,8 +60,6 @@ class Buy extends React.Component {
     });
 
     await this.getCurrentUserData();
-
-    console.log("Inside calculateAmount state: ", this.state);
 
     //Check the total against the balance, if the total is more than the balance, alert. Else, alter the user's balance
 
@@ -75,16 +75,8 @@ class Buy extends React.Component {
 
     const { displayName, email, createdAt, balance } = this.state.userData;
     const firebaseUser = await auth.currentUser;
-    // console.log("current user: ", currentUser);
-    //const currentUser = await auth.currentUser;
-    // const currentUserStuff = await firestore
-    //   .doc(`users/${currentUser.uid}`)
-    //   .get();
-    // console.log("currentUser buy: ", currentUserStuff);
 
     if (this.props.currentUser) {
-      console.log("Props buy: ", this.props.currentUser);
-
       firestore
         .collection("users")
         .doc(firebaseUser.uid)
@@ -119,7 +111,8 @@ class Buy extends React.Component {
               .doc(currentID)
               .set({
                 ticker: this.state.ticker,
-                quantity: this.state.quantity + currentQuant
+                quantity: this.state.quantity + currentQuant,
+                latestPrice: this.state.latestPrice
               });
           }
         });
@@ -133,7 +126,8 @@ class Buy extends React.Component {
         .collection("portfolio")
         .add({
           ticker: this.state.ticker,
-          quantity: this.state.quantity
+          quantity: this.state.quantity,
+          latestPrice: this.state.latestPrice
         });
     }
     //Create a transaction instance/collection for the user
@@ -145,8 +139,20 @@ class Buy extends React.Component {
         ticker: this.state.ticker,
         quantity: this.state.quantity,
         total: this.state.total,
-        date: new Date()
+        latestPrice: this.state.latestPrice,
+        date: new Date().toUTCString()
       });
+
+    this.setState({
+      ticker: "",
+      quantity: null,
+      total: 0,
+      userData: this.state.userData,
+      test: false,
+      disabled: true,
+      latestPrice: "",
+      openPrice: ""
+    });
   };
 
   getCurrentUserData = async () => {
@@ -159,7 +165,6 @@ class Buy extends React.Component {
   };
 
   render() {
-    console.log("Inside render state: ", this.state);
     const { userData, total } = this.state;
     return (
       <div>
