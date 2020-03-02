@@ -20,7 +20,7 @@ const Header = ({ currentUser }) => {
           </div>
         ) : (
           <div>
-            <Nav.Link href="/signin">Sign In</Nav.Link>
+            <Nav.Link href="/">Sign In</Nav.Link>
           </div>
         )}
       </Nav>

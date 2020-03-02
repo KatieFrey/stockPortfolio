@@ -3,6 +3,7 @@ import quote from "../utils/getQuoteEXI";
 import { firestore } from "../firebase/firebase.utils";
 
 export const getPortfolio = async currentUser => {
+  console.log("getPortfolio currentUser: ", currentUser);
   const portfolioArr = [];
   await firestore
     .collection("users")

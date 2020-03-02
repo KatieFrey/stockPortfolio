@@ -138,7 +138,7 @@ class Buy extends React.Component {
       .add({
         ticker: this.state.ticker,
         quantity: this.state.quantity,
-        total: this.state.total,
+        total: this.state.total.toFixed(2),
         latestPrice: this.state.latestPrice,
         date: new Date().toUTCString()
       });

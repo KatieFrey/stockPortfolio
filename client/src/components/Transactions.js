@@ -6,14 +6,14 @@ const Transactions = ({ transactions }) => {
   const sortedTransactions = transactions.sort(
     (a, b) => a.date.seconds - b.date.seconds
   );
-  //console.log(transactions);
+  console.log(transactions);
   return (
     <div>
       <ListGroup>
         {sortedTransactions &&
-          sortedTransactions.map(({ date, ticker, quantity, latestPrice }) => (
+          sortedTransactions.map(({ date, ticker, quantity, total }) => (
             <ListGroup.Item key={date.seconds}>
-              {ticker} - {quantity} shares @ {latestPrice}
+              {ticker} - {quantity} shares @ ${total}
             </ListGroup.Item>
           ))}
       </ListGroup>

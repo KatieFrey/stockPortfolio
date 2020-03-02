@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  withRouter
+} from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import Signin from "./pages/Signin";
@@ -12,7 +17,7 @@ import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -68,10 +73,15 @@ export default class App extends React.Component {
               loggedIn={currentUser}
               component={Dashboard}
             />
-            <Route path="/register" component={Register}></Route>
+            <Route
+              exact
+              path="/register"
+              component={currentUser ? Dashboard : Register}
+            ></Route>
           </Layout>
         </Switch>
       </Router>
     );
   }
 }
+export default App;
